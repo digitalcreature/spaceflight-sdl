@@ -1,14 +1,32 @@
 #include <iostream>
-#include <exception>
+#include <cstdlib>
 
-#include "vec.hpp"
+#include "Application.hpp"
+#include "State.hpp"
+#include "Time.hpp"
+#include "Graphics.hpp"
 
-using namespace std;
+class GameState : public State {
+	public:
+		virtual void update(float dt) {
+			printf("delta: %f fps: %d\n", dt, (unsigned int) (1 / dt));
+		}
 
-int main(int argc, char const *argv[]) {
-	vec3d a(6, 8, 0);
-	vec3<string> b("hello", "world", "");
-	cout << a << endl;
-	cout << b << endl;
+		virtual void render() {
+			Graphics::clear(Color(rand() % 256, rand() % 256, rand() % 256));
+		}
+};
+
+int main(int argc, char *argv[]) {
+	try {
+		Application::init("spaceflight");
+		GameState state;
+		Application::setState(&state);
+		Application::run();
+		Application::exit();
+	}
+	catch (ApplicationException& e) {
+		std::cout << e << std::endl;
+	}
 	return 0;
 }

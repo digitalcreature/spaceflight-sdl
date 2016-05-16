@@ -9,18 +9,6 @@
 
 using namespace std;
 
-class VectorComponentException;
-class VectorComponentException : public exception {
-public:
-	int component;
-	VectorComponentException(int component) : exception(), component(component) {}
-	virtual const char* what() {
-		static char message[64];
-		sprintf(message, "Vector component out of bounds: %d", component);
-		return message;
-	}
-};
-
 //vector component iteration
 #define components size_t i = 0; i < O; i ++
 
@@ -31,7 +19,7 @@ class vec {
 		T v[O];
 
 	public:
-		//constructors (only initializeup to first 4 components)
+		//constructors (only initialize up to first 4 components)
 		vec() {}
 		vec(T x) : vec() { this->x() = x; }
 		vec(T x, T y) : vec(x) { this->y() = y; }
@@ -45,7 +33,42 @@ class vec {
 		T& z() { return v[2]; }
 		T& w() { return v[3]; }
 
-		//get euclidean length squared
+		//zero vector constant (cached statically after first initialized)
+		static vec<T, O> zero() {
+			static vec<T, O> zero;
+			static bool init = false;
+			if (!init) {
+				init = true;
+				for (components) {
+					zero[i] = T(0);
+				}
+			}
+			return zero;
+		}
+
+		//one vector constant (cached statically after first initialized)
+		static vec<T, O> one() {
+			static vec<T, O> one;
+			static bool init = false;
+			if (!init) {
+				init = true;
+				for (components) {
+					one[i] = T(1);
+				}
+			}
+			return one;
+		}
+
+		//orthoganal vector constants (undefined if vector doesnt have enough dimensions)
+		//left hand rule: x-right, y-up, z-forward (just like unity3d)
+		static vec<T, O> right() { vec<T, O> vec = zero(); vec.x() = T(1); return vec; }
+		static vec<T, O> left() { vec<T, O> vec = zero(); vec.x() = T(-1); return vec; }
+		static vec<T, O> up() { vec<T, O> vec = zero(); vec.y() = T(1); return vec; }
+		static vec<T, O> down() { vec<T, O> vec = zero(); vec.y() = T(-1); return vec; }
+		static vec<T, O> forward() { vec<T, O> vec = zero(); vec.z() = T(1); return vec; }
+		static vec<T, O> backward() { vec<T, O> vec = zero(); vec.z() = T(-1); return vec; }
+
+		//get square euclidean length
 		T len2() {
 			T len2 = T();
 			for (components) {
@@ -59,6 +82,16 @@ class vec {
 			return (T) sqrt((double) this->len2());
 		}
 
+		//get square euclidean distance to vector
+		T dist2(vec<T, O> that) {
+			return (that - *this).len2();
+		}
+
+		//get euclidean distance to vector
+		T dist(vec<T, O> that) {
+			return (that - *this).len();
+		}
+
 		//gret order of vector (dimensions)
 		size_t order() {
 			return O;
@@ -68,7 +101,7 @@ class vec {
 		vec<T, O> operator+(vec<T, O>& that) {
 			vec<T, O> vec;
 			for (components) {
-				vec[i] = (*this)[i] + that[i];
+				vec[i] = v[i] + that[i];
 			}
 			return vec;
 		}
@@ -77,7 +110,7 @@ class vec {
 		vec<T, O> operator-(vec<T, O>& that) {
 			vec<T, O> vec;
 			for (components) {
-				vec[i] = (*this)[i] - that[i];
+				vec[i] = v[i] - that[i];
 			}
 			return vec;
 		}
@@ -111,7 +144,7 @@ class vec {
 		T operator*(vec<T, O>& that) {
 			T dot;
 			for (components) {
-				dot += (*this)[i] * that[i];
+				dot += v[i] * that[i];
 			}
 			return dot;
 		}
