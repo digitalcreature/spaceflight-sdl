@@ -3,7 +3,7 @@
 #include "Input.hpp"
 #include "Time.hpp"
 #include "Graphics.hpp"
-#include "exceptions.hpp"
+#include "SDLException.hpp"
 
 Window *Application::window = NULL;
 bool Application::quitRequested = false;

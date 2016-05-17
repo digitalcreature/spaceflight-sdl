@@ -1,5 +1,5 @@
 #include "Window.hpp"
-#include "exceptions.hpp"
+#include "SDLException.hpp"
 
 Window::Window(std::string title, unsigned int width, unsigned int height)
 	: width(width), height(height) {

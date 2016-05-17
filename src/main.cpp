@@ -7,7 +7,7 @@
 #include "Graphics.hpp"
 #include "Input.hpp"
 #include "math.hpp"
-#include "exceptions.hpp"
+#include "LibraryException.hpp"
 #include "Mesh.hpp"
 
 class GameState : public State {
@@ -75,8 +75,9 @@ int main(int argc, char *argv[]) {
 		Application::run();
 		Application::close();
 	}
-	catch (SDLException& e) {
+	catch (LibraryException& e) {
 		std::cout << e << std::endl;
+		return -1;
 	}
 	return 0;
 }

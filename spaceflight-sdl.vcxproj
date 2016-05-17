@@ -131,9 +131,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Application.cpp" />
-    <ClCompile Include="src\GLEWException.cpp" />
     <ClCompile Include="src\Graphics.cpp" />
     <ClCompile Include="src\Input.cpp" />
+    <ClCompile Include="src\LibraryException.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\math.cpp" />
     <ClCompile Include="src\Mesh.cpp" />
@@ -143,21 +143,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\Application.hpp" />
-    <ClInclude Include="inc\exceptions.hpp" />
+    <ClInclude Include="inc\GLEWException.hpp" />
+    <ClInclude Include="inc\LibraryException.hpp" />
     <ClInclude Include="inc\GL.hpp" />
     <ClInclude Include="inc\Graphics.hpp" />
     <ClInclude Include="inc\Input.hpp" />
     <ClInclude Include="inc\Mesh.hpp" />
+    <ClInclude Include="inc\SDLException.hpp" />
     <ClInclude Include="inc\State.hpp" />
     <ClInclude Include="inc\Time.hpp" />
     <ClInclude Include="inc\math.hpp" />
     <ClInclude Include="inc\vec.hpp" />
     <ClInclude Include="inc\Window.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\SDLException.cpp">
-      <FileType>Document</FileType>
-    </ClCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

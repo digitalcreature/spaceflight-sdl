@@ -3,7 +3,7 @@
 #include "Graphics.hpp"
 #include "Application.hpp"
 #include "math.hpp"
-#include "exceptions.hpp"
+#include "GLEWException.hpp"
 
 #include "cml\vector.h"
 
@@ -19,6 +19,8 @@ void Graphics::init() {
 	if (error != GLEW_OK) throw GLEWException("Error initializing GLEW!", error);
 	//enable vsync
 	SDL_GL_SetSwapInterval(1);
+
+	glEnableClientState(GL_VERTEX_ARRAY);
 }
 
 void Graphics::clear(Color color) {

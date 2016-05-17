@@ -12,15 +12,15 @@ Mesh::~Mesh() {
 	glDeleteBuffers(1, &indexBufferName);
 }
 
+//render mesh at origin
 void Mesh::render() {
-	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, vertBufferName);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferName);
 	glDrawElements(GL_TRIANGLES, getIndexCount(), GL_UNSIGNED_INT, NULL);
-	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
+//uploads mesh data to VBOs and IBO
 void Mesh::update() {
 	glBindBuffer(GL_ARRAY_BUFFER, vertBufferName);
 	size_t vertCount = getVertCount();
