@@ -15,4 +15,5 @@ class Time {
 		static void update();
 	public:
 		static float getDelta();
+		static float getTime();
 };

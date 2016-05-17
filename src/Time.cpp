@@ -21,3 +21,7 @@ float Time::getDelta() {
 	return delta.count();
 }
 
+float Time::getTime() {
+	return duration_cast<duration<float> >((steady_clock::now() - startTime)).count();
+}
+

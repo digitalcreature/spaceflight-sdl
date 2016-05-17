@@ -3,24 +3,22 @@
 #include "Input.hpp"
 #include "Time.hpp"
 #include "Graphics.hpp"
+#include "exceptions.hpp"
 
-SDL_Window* Application::window;
-SDL_Surface* Application::screen;
+Window *Application::window = NULL;
 bool Application::quitRequested = false;
 State *Application::state = NULL;
 
 void Application::init(std::string title) {
-	if (SDL_Init(SDL_INIT_VIDEO) < 0) throw ApplicationException("Could not initialize application!");
-	window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
-	if (!window) throw ApplicationException("Could not create application window!");
-	screen = SDL_GetWindowSurface(window);
+	if (SDL_Init(SDL_INIT_VIDEO) < 0) throw SDLException("Could not initialize application!");
+	window = new Window(title);
 	Time::init();
 	Input::init();
 	Graphics::init();
 }
 
-void Application::exit() {
-	if (window) SDL_DestroyWindow(window);
+void Application::close() {
+	delete window;
 	SDL_Quit();
 }
 
@@ -29,8 +27,6 @@ void Application::quit() {
 }
 
 void Application::run() {
-	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 255, 255, 255));
-	SDL_UpdateWindowSurface(window);
 	while (!quitRequested) {
 		Time::update();
 		Input::update();
@@ -38,7 +34,7 @@ void Application::run() {
 			state->update(Time::getDelta());
 			Graphics::clear();
 			state->render();
-			Graphics::present();
+			window->swapBuffers();
 		}
 	}
 }
@@ -47,15 +43,3 @@ void Application::setState(State *state) {
 	Application::state = state;
 }
 
-ApplicationException::ApplicationException(char* message, bool reportSDLError)
-	: message(message), sdlError(SDL_GetError()), reportSDLError(reportSDLError) {}
-
-const char* ApplicationException::what() {
-	return "Application Exception";
-}
-
-std::ostream& operator<<(std::ostream& out, ApplicationException e) {
-	out << "Application Exception: " << e.message;
-	if (e.reportSDLError) out << " [" << e.sdlError << "]";
-	return out;
-}
