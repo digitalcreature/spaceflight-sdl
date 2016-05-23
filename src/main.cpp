@@ -9,6 +9,7 @@
 #include "math.hpp"
 #include "LibraryException.hpp"
 #include "Mesh.hpp"
+#include "ShaderProgram.hpp"
 
 class GameState : public State {
 	private:
@@ -18,17 +19,19 @@ class GameState : public State {
 		float t;
 		float fadeTime;
 		Mesh mesh;
+		ShaderProgram shader;
 	public:
 		GameState()
 			: startColor(0, 0, 0), endColor(Color::random()), color(Color::random()),
 			t(0), fadeTime(0.5f),
-			mesh() {
+			mesh(), shader("shader/test") {
+			puts(shader.error() ? "shader loading failed" : "shader loading succeeded");
 			//initialize verts
 			mesh.setVertCount(4);
-			mesh.vert(0) = cml::vector3f(-0.5f, -0.5f, 0.0f);
-			mesh.vert(1) = cml::vector3f(0.5f, -0.5f, 0.0f);
-			mesh.vert(2) = cml::vector3f(0.5f, 0.5f, 0.0f);
-			mesh.vert(3) = cml::vector3f(-0.5f, 0.5f, 0.0f);
+			mesh.vert(0) = vec3(-0.5f, -0.5f, 0.0f);
+			mesh.vert(1) = vec3(0.5f, -0.5f, 0.0f);
+			mesh.vert(2) = vec3(0.5f, 0.5f, 0.0f);
+			mesh.vert(3) = vec3(-0.5f, 0.5f, 0.0f);
 			//initialize indices
 			mesh.setIndexCount(6);
 			mesh.index(0) = 0;
@@ -39,6 +42,10 @@ class GameState : public State {
 			mesh.index(5) = 3;
 			//update VBOs and IBO
 			mesh.update();
+		}
+			
+		virtual void onenter() {
+			math::srandomt();
 		}
 
 		virtual void update(float dt) {
@@ -58,16 +65,22 @@ class GameState : public State {
 			if (Input::keyWasPressed(SDL_SCANCODE_SPACE)) {
 				Application::quit();
 			}
+			float time = Time::getTime();
+			mesh.vert(0)[0] = cos(time);
+			mesh.vert(0)[1] = sin(time);
+			mesh.update();
+			//print framerate
+			//printf("%dFPS\n",(int) (1 /dt));
 		}
 
 		virtual void render() {
 			Graphics::clear(color);
+			shader.use();
 			mesh.render();
 		}
 };
 
 int main(int argc, char *argv[]) {
-	math::srandomt();
 	try {
 		Application::init("spaceflight");
 		GameState state;

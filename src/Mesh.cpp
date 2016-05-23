@@ -1,5 +1,6 @@
 
 #include "Mesh.hpp"
+#include "ShaderProgram.hpp"
 
 Mesh::Mesh() :
 	verts(0), indices(0) {
@@ -24,8 +25,8 @@ void Mesh::render() {
 void Mesh::update() {
 	glBindBuffer(GL_ARRAY_BUFFER, vertBufferName);
 	size_t vertCount = getVertCount();
-	glBufferData(GL_ARRAY_BUFFER, vertCount * sizeof(cml::vector3f), &verts.front(), GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertCount * sizeof(vec3), &verts.front(), GL_DYNAMIC_DRAW);
+	glVertexAttribPointer(ShaderProgram::POSITION_BINDLOC, 3, GL_FLOAT, 0, 0, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferName);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, getIndexCount() * sizeof(GLuint), &indices.front(), GL_DYNAMIC_DRAW);
-
 }

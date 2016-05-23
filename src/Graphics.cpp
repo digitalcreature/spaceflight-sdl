@@ -4,6 +4,7 @@
 #include "Application.hpp"
 #include "math.hpp"
 #include "GLEWException.hpp"
+#include "ShaderProgram.hpp"
 
 #include "cml\vector.h"
 
@@ -17,10 +18,15 @@ void Graphics::init() {
 	//initialize GLEW
 	GLenum error = glewInit();
 	if (error != GLEW_OK) throw GLEWException("Error initializing GLEW!", error);
-	//enable vsync
-	SDL_GL_SetSwapInterval(1);
+	//disable vsync
+	SDL_GL_SetSwapInterval(0);
+	//face culling: clockwise
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_CW);
+	//enable vertex array drawing
+//	glEnableClientState(GL_VERTEX_ARRAY);
 
-	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnableVertexAttribArray(ShaderProgram::POSITION_BINDLOC);
 }
 
 void Graphics::clear(Color color) {

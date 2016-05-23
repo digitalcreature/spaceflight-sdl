@@ -2,13 +2,14 @@
 
 #include "Graphics.hpp"
 #include <vector>
-#include <cml/vector.h>
+#include <glm\vec3.hpp>
 
+using namespace glm;
 class Mesh {
 	private:
 		guint vertBufferName;
 		guint indexBufferName;
-		std::vector<cml::vector3f> verts;
+		std::vector<vec3> verts;
 		std::vector<guint> indices;
 	public:
 		Mesh();
@@ -18,7 +19,7 @@ class Mesh {
 		void setVertCount(size_t count) { verts.resize(count); }
 		size_t getIndexCount() { return indices.size(); }
 		void setIndexCount(size_t count) { indices.resize(count); }
-		cml::vector3f& vert(size_t i) { return verts[i]; }
+		vec3& vert(size_t i) { return verts[i]; }
 		guint& index(size_t i) { return indices[i]; }
 		void update();
 };

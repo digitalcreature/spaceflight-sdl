@@ -1,4 +1,5 @@
 c:\users\livinghamburger\documents\github\spaceflight-sdl\release\vc140.pdb
+c:\users\livinghamburger\documents\github\spaceflight-sdl\release\sdlexception.obj
 c:\users\livinghamburger\documents\github\spaceflight-sdl\release\window.obj
 c:\users\livinghamburger\documents\github\spaceflight-sdl\release\time.obj
 c:\users\livinghamburger\documents\github\spaceflight-sdl\release\state.obj
@@ -7,7 +8,9 @@ c:\users\livinghamburger\documents\github\spaceflight-sdl\release\main.obj
 c:\users\livinghamburger\documents\github\spaceflight-sdl\release\input.obj
 c:\users\livinghamburger\documents\github\spaceflight-sdl\release\graphics.obj
 c:\users\livinghamburger\documents\github\spaceflight-sdl\release\application.obj
-c:\users\livinghamburger\documents\github\spaceflight-sdl\release\sdlexception.obj
+c:\users\livinghamburger\documents\github\spaceflight-sdl\release\mesh.obj
+c:\users\livinghamburger\documents\github\spaceflight-sdl\release\glewexception.obj
+c:\users\livinghamburger\documents\github\spaceflight-sdl\release\libraryexception.obj
 c:\users\livinghamburger\documents\github\spaceflight-sdl\release\spaceflight-sdl.exe
 c:\users\livinghamburger\documents\github\spaceflight-sdl\release\spaceflight-sdl.ipdb
 c:\users\livinghamburger\documents\github\spaceflight-sdl\release\spaceflight-sdl.iobj

@@ -5,6 +5,9 @@
 #include "GL.hpp"
 #include "Application.hpp"
 
+typedef GLuint guint;
+typedef GLfloat gfloat;
+
 class Color {
 	public:
 		float r;
@@ -35,6 +38,3 @@ private:
 public:
 	static void clear(Color color = Color(0, 0, 0));
 };
-
-typedef GLuint guint;
-typedef GLfloat gfloat;

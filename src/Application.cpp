@@ -40,6 +40,8 @@ void Application::run() {
 }
 
 void Application::setState(State *state) {
+	if (Application::state) Application::state->onexit();
+	if (state) state->onenter();
 	Application::state = state;
 }
 

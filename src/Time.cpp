@@ -22,6 +22,6 @@ float Time::getDelta() {
 }
 
 float Time::getTime() {
-	return duration_cast<duration<float> >((steady_clock::now() - startTime)).count();
+	return duration_cast<duration<float>>((steady_clock::now() - startTime)).count();
 }
 
